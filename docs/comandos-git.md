@@ -9,3 +9,9 @@ git init
 ```
 git remote add origin https://github.com/cchura94/back_nest_angular.git
 ```
+-----------------------
+```
+git add .
+git commit -m "proyecto base"
+git push origin master
+```
