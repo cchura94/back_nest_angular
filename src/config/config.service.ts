@@ -7,6 +7,19 @@ export class ConfigService {
     private readonly envConfig: {[key: string]: string};
 
     constructor(){
+        const env = process.env.NODE_ENV || 'development'
+        // let ruta = `${__dirname}/../`
+        const envFilePath = `${__dirname}/../../.env.${env}`
+        
+        const existsPath = fs.existsSync(envFilePath)
+        
+        if(!existsPath){
+            console.log(`.env.${process.env.NODE_ENV} no existe`)
+            process.exit(0)
+        }
+        this.envConfig = parse(fs.readFileSync(envFilePath))
+        
+        /*
         const isDevelopmentEnv = process.env.NODE_ENV !== 'production'
         if(isDevelopmentEnv){
             const envFilePath = __dirname + '/../../.env.development'
@@ -25,6 +38,7 @@ export class ConfigService {
             }
             this.envConfig = parse(fs.readFileSync(envFilePath))
         }
+        */
     }
 
     get(key: string): string {
