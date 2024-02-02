@@ -9,7 +9,9 @@ export class ConfigService {
     constructor(){
         const env = process.env.NODE_ENV || 'development'
         // let ruta = `${__dirname}/../`
-        const envFilePath = `${__dirname}/../../.env.${env}`
+        const envFilePath = `${__dirname}/../../../.env.${env}`
+
+        console.log(envFilePath)
         
         const existsPath = fs.existsSync(envFilePath)
         
