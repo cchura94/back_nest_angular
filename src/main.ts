@@ -14,10 +14,11 @@ async function bootstrap() {
 
   // swagger
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Proyecto Nest')
-    .setDescription('The cats API description')
+    .setDescription('Backend API Nest')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('Api Rest')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

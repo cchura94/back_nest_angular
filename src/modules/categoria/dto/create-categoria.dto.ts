@@ -1,4 +1,8 @@
+import { IsOptional } from "class-validator";
+
 export class CreateCategoriaDto {
-    nombre: string
-    detalle: string;
+    nombre: string;
+
+    @IsOptional()
+    detalle?: string;
 }
