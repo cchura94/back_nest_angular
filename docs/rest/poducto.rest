@@ -1,0 +1,27 @@
+GET http://localhost:3000/producto
+
+### crear producto
+POST http://localhost:3000/producto
+Content-Type: application/json
+
+{
+    "nombre": "AUDIFONO",
+    "precio": "599.98",
+    "stock": 15,
+    "categoriaId": 1
+}
+
+### modificar producto
+PATCH  http://localhost:3000/producto/10
+Content-Type: application/json
+
+{
+    "nombre": "PARLANTES",
+    "precio": "199.98",
+    "stock": 5,
+    "categoriaId": 1
+}
+
+### Buscar por nombre
+
+GET http://localhost:3000/producto/back?page=1&q=MO&sort=asc
