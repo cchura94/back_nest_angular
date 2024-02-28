@@ -33,6 +33,7 @@ export class AuthService {
                 email: email
             }
         })
+        console.log(buscaruser)
         if(!buscaruser){
             return new HttpException('USER_NOT_FOUND', 404);
         } 

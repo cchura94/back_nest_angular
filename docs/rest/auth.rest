@@ -2,9 +2,9 @@ POST http://127.0.0.1:3000/auth/register
 Content-Type: application/json
 
 {
-    "name": "cristian",
-    "email": "cristian@mail.com",
-    "password": "cristian54321"
+    "name": "admin",
+    "email": "admin@mail.com",
+    "password": "admin54321"
 }
 
 ### login
