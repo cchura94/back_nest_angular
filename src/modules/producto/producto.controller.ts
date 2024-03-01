@@ -38,7 +38,7 @@ export class ProductoController {
 
     const page:number = parseInt(req.query.page as any) || 1;
     
-    const limit = 2;
+    const limit = parseInt(req.query.limit as any) || 10;;
 
     builder.offset((page-1) * limit).limit(limit)
 
