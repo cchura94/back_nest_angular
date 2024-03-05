@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductoService {
+ 
 
   constructor(@InjectRepository(Producto) private productoRepository: Repository<Producto>){}
 
@@ -38,5 +39,14 @@ export class ProductoService {
 
   remove(id: number) {
     return this.productoRepository.delete(id)
+  }
+
+  uploadImagen(file: Express.Multer.File, id: any) {
+    console.log(file);
+    const prod = this.productoRepository.findOne({
+      where: {id: id}
+    })
+
+    return this.productoRepository.update({id: id}, {imagen: file.filename});
   }
 }

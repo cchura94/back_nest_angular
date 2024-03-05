@@ -1,13 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards, UseInterceptors, UploadedFile, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, StreamableFile, Res } from '@nestjs/common';
 import { ProductoService } from './producto.service';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { createReadStream } from 'fs';
 
-@UseGuards(JwtAuthGuard)
-@ApiBearerAuth()
+// @UseGuards(JwtAuthGuard)
+// @ApiBearerAuth()
 @ApiTags('producto')
 @Controller('producto')
 export class ProductoController {
@@ -67,4 +71,37 @@ export class ProductoController {
   remove(@Param('id') id: string) {
     return this.productoService.remove(+id);
   }
+
+
+  @Post(':id/actualizar-img')
+  @UseInterceptors(FileInterceptor('imagen', {
+    storage: diskStorage({
+      destination: './files',
+      filename: (req, file, callback) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random()*9);
+        const ext = extname(file.originalname);
+        const filename = `${file.originalname}-${uniqueSuffix}${ext}`;
+        callback(null, filename)
+      }
+    })
+  }))
+  uploadFile(@UploadedFile(new ParseFilePipe({
+    validators: [
+      new FileTypeValidator({ fileType: '.(png|jpeg|jpg)'}),
+      new MaxFileSizeValidator({maxSize: 1024*1024*4})
+    ]
+  })) file: Express.Multer.File, @Param() params) {
+    console.log(file);
+
+    return this.productoService.uploadImagen(file, params.id)
+
+  }
+
+  @Get('file/:img')
+  getArchivoFile(@Param('img') imagen, @Res() res){
+
+    return res.sendFile(imagen, {root: 'files'})
+        
+  }
+  
 }
