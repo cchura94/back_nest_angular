@@ -23,6 +23,12 @@ export class ClienteController {
   findOne(@Param('id') id: string) {
     return this.clienteService.findOne(+id);
   }
+  
+
+  @Get('q/:buscar')
+  buscarOne(@Param() params) {
+    return this.clienteService.buscar(params.buscar);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateClienteDto: UpdateClienteDto) {
