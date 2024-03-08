@@ -25,6 +25,9 @@ export class Producto {
     @Column({type: 'boolean', default: true})
     estado: boolean;
 
+    @Column()
+    categoriaId: Number;
+
     @ManyToOne(() => Categoria, (cat) => cat.productos)
     categoria: Categoria;
 

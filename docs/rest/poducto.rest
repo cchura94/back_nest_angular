@@ -6,7 +6,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQG1haWwuY29tIiwiaWQiOjEsImlhdCI6MTcwOTI1Nzk5MCwiZXhwIjoxNzA5MjYxNTkwfQ.cdeVkr7FF_qVajMdgiKQf6n5Q548sL2de6UyMYiiBYE
 
 {
-    "nombre": "ESCRITORIO",
+    "nombre": "Prueba Escritorio 2",
     "precio": "1599.98",
     "stock": 5,
     "categoriaId": 1

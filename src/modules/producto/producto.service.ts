@@ -20,7 +20,7 @@ export class ProductoService {
   }
 
   findAll() {
-    return this.productoRepository.find()
+    return this.productoRepository.find({relations: ['categoria']})
   }
 
   findOne(id: number) {

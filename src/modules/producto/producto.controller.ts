@@ -10,8 +10,8 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { createReadStream } from 'fs';
 
-// @UseGuards(JwtAuthGuard)
-// @ApiBearerAuth()
+@UseGuards(JwtAuthGuard)
+@ApiBearerAuth()
 @ApiTags('producto')
 @Controller('producto')
 export class ProductoController {
@@ -29,7 +29,8 @@ export class ProductoController {
 
   @Get('back')
   async backend(@Req() req: Request){
-    const builder = await this.productoService.queryBuilder('productos');
+    const builder = await this.productoService.queryBuilder('productos')
+                    .leftJoinAndSelect('productos.categoria', 'categoria');
 
     if(req.query.q){
       builder.where("productos.nombre LIKE :q", {q: `%${req.query.q}%`})
