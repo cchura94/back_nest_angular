@@ -79,8 +79,29 @@ export class PedidoService {
 
   }
 
-  findAll() {
-    return `This action returns all pedido`;
+  async findAll() {
+    const pedidos = await this.pedidoRepository.find({
+      relations: ['cliente', 'pedidoProductos', 'pedidoProductos.producto']
+    })
+
+    return pedidos.map((pedido) => ({
+      id: pedido.id,
+      fecha: pedido.fecha,
+      estado: pedido.estado,
+      observaciones: pedido.observaciones,
+      cliente: {
+        id: pedido.cliente.id,
+        nombre_completo: pedido.cliente.nombre_completo,
+        ci_nit: pedido.cliente.ci_nit,
+        telefono: pedido.cliente.telefono
+      },
+      productos: pedido.pedidoProductos.map((pedidoProducto) => ({
+        id: pedidoProducto.id,
+        cantidad: pedidoProducto.cantidad,
+        nombre: pedidoProducto.producto.nombre,
+        precio: pedidoProducto.producto.precio,
+      }))
+    }))
   }
 
   findOne(id: number) {
